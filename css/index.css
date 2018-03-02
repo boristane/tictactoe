@@ -1,0 +1,120 @@
+section{
+    width: 380px;
+    margin: auto;
+    margin-top: 15%;
+    text-align: center;
+}
+
+.turn-box{
+    margin: 0 15px;
+}
+
+.turns{
+    height: 40px;
+    font-size: 1.1em;
+}
+
+#player-one-turn{
+    background-color: green;
+}
+
+#player-two-turn{
+    background-color: red;
+}
+
+.board{
+    padding: 0 25px 35px 25px;
+    width: 325px;
+    margin: auto;
+    background-color: #f0b487;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px grey;
+}
+
+main{
+    text-align: center;
+    width: 300px;
+    background: radial-gradient(#284f3c, #132320);
+    padding: 10px;
+    color: white;
+}
+
+.score-board{
+    text-align: left;
+    margin-left: 15%;
+}
+
+.score{
+    position: relative;
+    top: 6px;
+}
+
+#player-one-name{
+    border-right: grey solid 2px;
+}
+
+.reset{
+    text-align: center;
+    font-size: 1.3em;
+    padding-left: 30px;
+}
+
+#reset{
+    position: relative;
+    top: 8px;
+    padding: 3px 8px;
+}
+
+#reset:hover{
+    cursor: pointer;
+    border: dashed black 2px;
+    border-radius: 25px;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.grid-item{
+    font-size: 30px;
+    padding: 25px;
+    border-bottom: solid 2px lightgrey;
+    border-right: solid 2px lightgrey;
+}
+
+.right{
+    border-right: none;
+}
+
+.bottom{
+    border-bottom: none;
+}
+
+p{
+    margin: 0px !important;
+}
+
+footer{
+	text-align: right;
+	font-size: 0.8em;
+	color: grey;
+    margin: 20px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+footer a{
+	color: grey;
+}
+
+footer a:visited{
+	color: grey;
+}
+
+footer a:hover{
+	color: black;
+}

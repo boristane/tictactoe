@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+    <title>tictactoe</title>
+</head>
+<body>
+    <section>
+        <div class="row turn-box">
+            <div class="six columns turns" id="player-one-turn">
+                Your turn !
+            </div>
+            <div class="six columns turns" id="player-two-turn">
+                Computer's turn !
+            </div>
+        </div>
+        <div class="board">
+            <div class="score-board row">
+                <div class="three columns">
+                    <p id="player-one" class="score">0</p>
+                    <p id="player-one-name">Player 1</p>
+                </div>
+                <div class="three columns">
+                    <p id="player-two" class="score">0</p>
+                    <p id="player-two-name">Player 2</p>
+                </div>
+                <div class="six columns reset">
+                    <p><span id="reset">Reset All</span></p>
+                </div>
+            </div>
+            <main>
+                <div class="table">
+                    <div class="grid-container">
+                        <div class="grid-item" id="zero">0</div>
+                        <div class="grid-item" id="one">1</div>
+                        <div class="grid-item right" id="two">2</div>
+                        <div class="grid-item" id="three">3</div>
+                        <div class="grid-item" id="four">4</div>
+                        <div class="grid-item right" id="five">5</div>
+                        <div class="grid-item bottom" id="six">6</div>
+                        <div class="grid-item bottom" id="seven">7</div>
+                        <div class="grid-item bottom right" id="eight">8</div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <footer>
+        Made with &#9889; by <a href="https://github.com/boristane" target="_blank">Boris Tane</a>
+    </footer>
+</body>
+</html>
