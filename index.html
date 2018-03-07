@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
     <title>tictactoe</title>
+    <script src="js/index.js"></script>
 </head>
 <body>
     <section>
@@ -32,8 +33,8 @@
                     <p><span id="reset">Reset All</span></p>
                 </div>
             </div>
-            <main>
-                <div class="table">
+            <main id="playing-board">
+                <div class="table" id="board">
                     <div class="grid-container">
                         <div class="grid-item" id="zero">0</div>
                         <div class="grid-item" id="one">1</div>
@@ -45,6 +46,15 @@
                         <div class="grid-item bottom" id="seven">7</div>
                         <div class="grid-item bottom right" id="eight">8</div>
                     </div>
+                </div>
+                <div class="message" hidden>
+                    <p id="message">What do you mean ?</p>
+                </div>
+                <div class="choices" hidden>
+                    <p><span id="choice-one" class="selection">A</span><span id="choice-two" class="selection">B</span></p>
+                </div>
+                <div class="back" hidden>
+                    <p><span class="selection">&larr; Back</span></p>
                 </div>
             </main>
         </div>
