@@ -10,8 +10,12 @@ section{
 }
 
 .turns{
+    position: relative;
+    top: 40px;
     height: 40px;
+    transition: top 0.5s ease;
     font-size: 1.1em;
+    z-index: -1;
 }
 
 #player-one-turn{
@@ -122,7 +126,7 @@ p{
 
 .back{
     font-size: 1.3em;
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 10px;
 }
 
