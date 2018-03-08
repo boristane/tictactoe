@@ -10,16 +10,27 @@ document.addEventListener("DOMContentLoaded", () => {
         choicesBox: document.querySelector(".choices"),
         back: document.querySelector(".back"),
         playerTwoTurn: document.getElementById("player-two-turn"),
-        reset: document.getElementById("reset")
+        reset: document.getElementById("reset"),
+        zero: document.getElementById("zero"),
+        one: document.getElementById("one"),
+        two: document.getElementById("two"),
+        three: document.getElementById("three"),
+        four: document.getElementById("four"),
+        five: document.getElementById("five"),
+        six: document.getElementById("six"),
+        seven: document.getElementById("seven"),
+        eigth: document.getElementById("eight")
     }
 
     let symbols = ["X", "O"];
     let board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     let numPlayers = 0;
     let currentPlayer = Math.random() < 0.5 ? 0 : 1;
+    let otherPlayer = currentPlayer === 0 ? 1 : 0;
     let score = [0,0];
     let numplays = 0;
     let stage = 0;
+    let winningCombination = [0, 0, 0];
 
     for(let i = 0; i < UI.choices.length; i++){
         UI.choices[i].addEventListener("click", (e)=>{
@@ -63,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         numPlayer = 0;
         numplays = 0;
         score = [0,0];
+        winningCombination = [0, 0, 0];
         UI.boardBox.hidden = true;
         UI.messageBox.hidden = false;
         UI.choicesBox.hidden = false;
@@ -109,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(()=>{
             for(let j = 0; j< board.length; j++){
                 UI.board[j].textContent = "";
+                UI.board[j].style.color = "white";
             }
             UI.boardBox.hidden = false;
             UI.messageBox.hidden = true;
@@ -116,11 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function switchPlayer(){
+        console.log("current player: " + currentPlayer);
         if(checkWin(board, symbols[currentPlayer])){
-            let message = '"' + symbols[currentPlayer] +'"' + " wins !";
-            displayMessage(message);
-            score[currentPlayer]++;
-            UI.scores[currentPlayer].textContent = score[currentPlayer];
+            winningCombination.forEach(elt => {
+                UI.board[elt].style.color = currentPlayer === 0 ? "green" : "red";
+            });
+            setTimeout(() => {
+                let message = '"' + symbols[otherPlayer] +'"' + " wins !";
+                displayMessage(message);
+                score[currentPlayer]++;
+                UI.scores[otherPlayer].textContent = score[currentPlayer];
+            }, 1000);
+            
         }else if(numplays === board.length){
             displayMessage("It's a draw !");
         }
@@ -136,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
         UI.turns[currentPlayer].style.top = "40px";
         currentPlayer = currentPlayer === 1 ? 0 : 1;
+        otherPlayer = currentPlayer === 0 ? 1 : 0;
         setTimeout(()=>{
             UI.turns[currentPlayer].style.top = "0px";
         },500);       
@@ -149,7 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
             for(let j = 0; j < elt.length; j++){
                 if(board[elt[j]] === char){
                     acc++;
-                    if(acc === 3) return true;
+                    if(acc === 3) {
+                        winningCombination = [...elt];
+                        return true;
+                    }
                 }else{
                     break;
                 }
