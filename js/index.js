@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let symbols = ["X", "O"];
-    let board = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     let numPlayers = 0;
     let currentPlayer = Math.random() < 0.5 ? 0 : 1;
     let score = [0,0];
@@ -43,16 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 UI.board[i].textContent = symbols[currentPlayer];
                 numplays++;
                 board[i] = symbols[currentPlayer];
-                if(checkWin(board, symbols[currentPlayer])){
-                    let message = '"' + symbols[currentPlayer] +'"' + " wins !";
-                    displayMessage(message);
-                    score[currentPlayer]++;
-                    UI.scores[currentPlayer].textContent = score[currentPlayer];
-                    numplays = 0;
-                }
-                else if(numplays === 9){
-                    displayMessage("It's a draw !");
-                }
                 switchPlayer();
             }
         });
@@ -72,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         stage = 0;
         numPlayer = 0;
         numplays = 0;
+        score = [0,0];
         UI.boardBox.hidden = true;
         UI.messageBox.hidden = false;
         UI.choicesBox.hidden = false;
@@ -81,11 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
         UI.choices[0].textContent = "One Player";
         UI.choices[1].textContent = "Two Players";
 
+        UI.scores[0].textContent = "0";
+        UI.scores[1].textContent = "0";
+
         UI.turns[0].style.top = "40px";
         UI.turns[1].style.top = "40px";
 
         board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        for(let j = 0; j< 9; j++){
+        for(let j = 0; j< board.length; j++){
             UI.board[j].textContent = "";
         }
     }
@@ -110,9 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
         UI.boardBox.hidden = true;
         UI.message.textContent = message;
         UI.messageBox.hidden = false;
+        numplays = 0;
+        board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         setTimeout(()=>{
-            board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            for(let j = 0; j< 9; j++){
+            for(let j = 0; j< board.length; j++){
                 UI.board[j].textContent = "";
             }
             UI.boardBox.hidden = false;
@@ -121,12 +116,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function switchPlayer(){
+        if(checkWin(board, symbols[currentPlayer])){
+            let message = '"' + symbols[currentPlayer] +'"' + " wins !";
+            displayMessage(message);
+            score[currentPlayer]++;
+            UI.scores[currentPlayer].textContent = score[currentPlayer];
+        }else if(numplays === board.length){
+            displayMessage("It's a draw !");
+        }
+        if(numPlayers===1 && currentPlayer === 0){
+            setTimeout(() => {
+                let AIPos = computerPlay(board, symbols[currentPlayer], symbols[0]);
+                console.log(AIPos);
+                UI.board[AIPos].textContent = symbols[currentPlayer];
+                numplays++;
+                board[AIPos] = symbols[currentPlayer];
+                switchPlayer();
+            }, 1600);
+        } 
         UI.turns[currentPlayer].style.top = "40px";
         currentPlayer = currentPlayer === 1 ? 0 : 1;
         setTimeout(()=>{
             UI.turns[currentPlayer].style.top = "0px";
-        },500)
-        
+        },500);       
     }
 
     function checkWin(board, char){
@@ -144,6 +156,43 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         return false;
+    }
+
+    function computerPlay(board, AIchar, playerChar){
+        // check if winning position
+        let boardCopy = [...board];
+        for(let i = 0; i < board.length; i++){
+            if(board[i]===0){
+                boardCopy[i] = AIchar;
+                if(checkWin(boardCopy, AIchar)){
+                    return i;
+                }else{
+                    boardCopy = [...board];
+                }
+            }
+        }
+
+        // check if player winning position
+        boardCopy = [...board];
+        for(let i = 0; i < board.length; i++){
+            if(board[i]===0){
+                boardCopy[i] = playerChar;
+                if(checkWin(boardCopy, playerChar)){
+                    return i;
+                }else{
+                    boardCopy = [...board];
+                }
+            }
+        }
+
+        // return a random available position
+        let available = [];
+        for(let i = 0; i < board.length; i++){
+            if(board[i] === 0) available.push(i);
+        }
+
+        return available[Math.floor(Math.random()*available.length)];
+
     }
 
 });
