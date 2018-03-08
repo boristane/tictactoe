@@ -10,16 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         choicesBox: document.querySelector(".choices"),
         back: document.querySelector(".back"),
         playerTwoTurn: document.getElementById("player-two-turn"),
-        reset: document.getElementById("reset"),
-        zero: document.getElementById("zero"),
-        one: document.getElementById("one"),
-        two: document.getElementById("two"),
-        three: document.getElementById("three"),
-        four: document.getElementById("four"),
-        five: document.getElementById("five"),
-        six: document.getElementById("six"),
-        seven: document.getElementById("seven"),
-        eigth: document.getElementById("eight")
+        reset: document.getElementById("reset")
     }
 
     let symbols = ["X", "O"];
@@ -51,10 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
         UI.board[i].addEventListener("click", (e) => {
             e.preventDefault();
             if(board[i] === 0){
-                UI.board[i].textContent = symbols[currentPlayer];
-                numplays++;
-                board[i] = symbols[currentPlayer];
-                switchPlayer();
+                if((numPlayers === 1 && currentPlayer === 0) || numPlayers === 2){
+                    UI.board[i].textContent = symbols[currentPlayer];
+                    numplays++;
+                    board[i] = symbols[currentPlayer];
+                    switchPlayer();
+                }
             }
         });
     }
