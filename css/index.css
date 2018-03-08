@@ -19,11 +19,11 @@ section{
 }
 
 #player-one-turn{
-    background-color: green;
+    background-color: #55DE64;
 }
 
 #player-two-turn{
-    background-color: red;
+    background-color: #F5665F;
 }
 
 .board{

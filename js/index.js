@@ -123,15 +123,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function switchPlayer(){
         console.log("current player: " + currentPlayer);
+        let waitTime = 0;
         if(checkWin(board, symbols[currentPlayer])){
+            waitTime = 1600;
             winningCombination.forEach(elt => {
-                UI.board[elt].style.color = currentPlayer === 0 ? "green" : "red";
+                UI.board[elt].style.color = currentPlayer === 0 ? "#55DE64" : "#F5665F";
             });
             setTimeout(() => {
-                let message = '"' + symbols[otherPlayer] +'"' + " wins !";
+                let message = '"' + symbols[currentPlayer] +'"' + " wins !";
                 displayMessage(message);
                 score[currentPlayer]++;
-                UI.scores[otherPlayer].textContent = score[currentPlayer];
+                UI.scores[currentPlayer].textContent = score[currentPlayer];
             }, 1000);
             
         }else if(numplays === board.length){
@@ -145,14 +147,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 numplays++;
                 board[AIPos] = symbols[currentPlayer];
                 switchPlayer();
-            }, 1600);
+            }, 1600 + waitTime);
         } 
         UI.turns[currentPlayer].style.top = "40px";
-        currentPlayer = currentPlayer === 1 ? 0 : 1;
-        otherPlayer = currentPlayer === 0 ? 1 : 0;
         setTimeout(()=>{
-            UI.turns[currentPlayer].style.top = "0px";
-        },500);       
+            currentPlayer = currentPlayer === 1 ? 0 : 1;
+            otherPlayer = currentPlayer === 0 ? 1 : 0;
+            setTimeout(()=>{
+                UI.turns[currentPlayer].style.top = "0px";
+            },500); 
+        }, waitTime);
+              
     }
 
     function checkWin(board, char){
@@ -176,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function computerPlay(board, AIchar, playerChar){
-        // check if winning position
+        // check if ai winning position
         let boardCopy = [...board];
         for(let i = 0; i < board.length; i++){
             if(board[i]===0){
